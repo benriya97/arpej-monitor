@@ -143,39 +143,23 @@ def check_for_new_residences():
     # Save updated state
     save_state(state)
 
-def run_continuous(check_interval_minutes=60):
-    """Run the monitor continuously"""
-    print(f"Starting Arpej residence monitor...")
-    print(f"Checking every {check_interval_minutes} minutes")
-    print(f"Press Ctrl+C to stop\n")
-    
-    while True:
-        try:
-            check_for_new_residences()
-            print(f"Next check in {check_interval_minutes} minutes...")
-            time.sleep(check_interval_minutes * 60)
-        except KeyboardInterrupt:
-            print("\nMonitor stopped.")
-            break
-        except Exception as e:
-            print(f"Error in monitoring loop: {e}")
-            time.sleep(60)  # Wait before retrying
-
 if __name__ == "__main__":
     print("=" * 60)
     print("ARPEJ RESIDENCE AVAILABILITY MONITOR")
     print("=" * 60)
     
-    # Test the fetching
-    print("\n1. Testing website connection...")
-    residences = fetch_residences()
-    print(f"   Successfully connected. Found {len(residences)} residence(s)")
-    
-    # Do initial check
-    print("\n2. Performing initial check...")
-    check_for_new_residences()
-    
-    # Start continuous monitoring
-    print("\n3. Starting continuous monitoring...")
-    print("   (Configure email credentials first in the script)")
-    run_continuous(check_interval_minutes=60)  # Check every hour
+    try:
+        # Test the fetching
+        print("\n[*] Testing website connection...")
+        residences = fetch_residences()
+        print(f"[✓] Successfully connected. Found {len(residences)} residence(s)")
+        
+        # Do initial check
+        print("\n[*] Performing check for new residences...")
+        check_for_new_residences()
+        print("[✓] Check completed successfully!")
+        
+    except Exception as e:
+        print(f"[✗] Error occurred: {e}")
+        import traceback
+        traceback.print_exc()
