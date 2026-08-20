@@ -13,7 +13,7 @@ jobs:
         with:
           python-version: '3.10'
       - run: pip install requests beautifulsoup4
-      - run: python arpej_monitor.py
+      - run: python arpej_monitor_debug.py
         env:
           SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
           SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
